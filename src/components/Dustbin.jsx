@@ -1,45 +1,7 @@
-// import { ItemTypes } from "./ItemTypes";
-// import { useDrop } from "react-dnd";
-// import { useState } from "react";
-// const style = {
-
-// };
-// export const Dustbin = function Dustbin({ name }) {
-//     const [hasDropped, setHasDropped] = useState(false);
-//     const [hasDroppedOnChild, setHasDroppedOnChild] = useState(false);
-//     const [{ isOver, isOverCurrent }, drop] = useDrop(
-//         () =>
-//             ({
-//                 accept: ItemTypes.BOX,
-//                 drop(item, monitor) {
-//                     const didDrop = monitor.didDrop();
-//                     if (didDrop) {
-//                         return;
-//                     }
-//                     setHasDropped(true);
-//                     setHasDroppedOnChild(didDrop);
-//                 },
-//                 collect: (monitor) => ({
-//                     isOver: monitor.isOver(),
-//                     canDrop: monitor.canDrop(),
-//                 }),
-//             }[(setHasDropped, setHasDroppedOnChild)])
-//     );
-//     // const text = greedy ? "greedy" : "not greedy";
-//     let backgroundColor = "rgba(0, 0, 0, .5)";
-//     if (isOverCurrent || isOver) {
-//         backgroundColor = "darkgreen";
-//     }
-//     return (
-//         <div ref={drop} style={backgroundColor}>
-//             {hasDropped && <span>dropped {hasDroppedOnChild}</span>}
-//         </div>
-//     );
-// };
-
 import { ItemTypes } from "./ItemTypes";
 import { useDrop } from "react-dnd";
 import { useState } from "react";
+
 function getStyle(backgroundColor) {
     return {
         height: "3rem",

@@ -9,7 +9,7 @@ import {
 import React, { useState } from "react";
 
 import { DndProvider } from "react-dnd";
-import Example from "../example";
+import Example from "../dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import PositionToggleButton from "../components/PositionToggleButton";
 
@@ -167,21 +167,21 @@ export default function ToggleButtonExample() {
                         <MyTogglebutton
                             radios={set_type}
                             variant="outline-secondary"
-                            name="set_type"
+                            name="type"
                         />
                         <hr />
                         <b className="mr-1">攻擊方式：</b>
                         <MyTogglebutton
                             radios={attack_type}
                             variant="outline-secondary"
-                            name="attack_type"
+                            name="way"
                         />
                         <hr />
                         <b className="mr-1">攻擊方向：</b>
                         <MyTogglebutton
                             radios={attack_radios}
                             variant="outline-secondary"
-                            name="attack_radios"
+                            name="way"
                         />
                         <hr />
                         <b className="mr-1">結果：</b>
@@ -193,7 +193,7 @@ export default function ToggleButtonExample() {
                                 size="lg"
                             >
                                 送出
-                            </Button>
+              </Button>
                             <Button
                                 variant="outline-danger"
                                 as="input"
@@ -206,51 +206,44 @@ export default function ToggleButtonExample() {
                 </Tab>
 
                 <Tab eventKey="defend" title="防守">
-                    <div className="d-flex">
-                        <div className="d-flex align-items-center">
-                            <b className="mr-1">防守位置：</b>
+                    <Form>
+                        <div className="d-flex">
+                            <div className="d-flex align-items-center">
+                                <b className="mr-1">防守位置：</b>
+                            </div>
+                            <App />
                         </div>
-                        <div>
-                            <br />
-                        </div>
-                    </div>
-                    <hr />
-                    <b className="mr-1">防守方式：</b>
-
-                    <hr />
-                    <b className="mr-1">結果：</b>
-                    <ButtonGroup toggle className="my-2">
-                        {defend_result.map((radio, idx) => (
-                            <ToggleButton
-                                key={idx}
-                                type="radio"
-                                variant="outline-secondary"
-                                name="radio"
-                                value={radio.value}
-                                checked={radioValue === radio.value}
-                                onChange={(e) =>
-                                    setRadioValue(e.currentTarget.value)
-                                }
-                            >
-                                {radio.name}
-                            </ToggleButton>
-                        ))}
-                    </ButtonGroup>
-                    <div>
-                        <Button
-                            variant="primary"
-                            className="mr-2"
-                            type="submit"
-                        >
-                            送出
-                        </Button>
-                        <Button
-                            variant="outline-danger"
-                            as="input"
-                            type="reset"
-                            value="reset"
+                        <hr />
+                        <b className="mr-1">防守方式：</b>
+                        <MyTogglebutton
+                            radios={defend_radios}
+                            variant="outline-secondary"
+                            name="way"
                         />
-                    </div>
+                        <hr />
+                        <b className="mr-1">結果：</b>
+                        <MyTogglebutton
+                            radios={defend_result}
+                            variant="outline-secondary"
+                            name="result"
+                        />
+                        <div>
+                            <Button
+                                variant="primary"
+                                className="mr-2"
+                                type="submit"
+                                size="lg"
+                                value="送出"
+                            />
+                            <Button
+                                variant="outline-danger"
+                                as="input"
+                                type="reset"
+                                value="清除"
+                                size="lg"
+                            />
+                        </div>
+                    </Form>
                 </Tab>
 
                 <Tab eventKey="set" title="舉球">
@@ -258,46 +251,14 @@ export default function ToggleButtonExample() {
                         <div className="d-flex align-items-center">
                             <b className="mr-1">舉球位置：</b>
                         </div>
-                        <div>
-                            <ButtonGroup toggle className="mt-2">
-                                {position_front.map((radio, idx) => (
-                                    <ToggleButton
-                                        key={idx}
-                                        type="radio"
-                                        variant="outline-secondary rounded-0"
-                                        name="radio"
-                                        value={radio.value}
-                                        checked={radioValue === radio.value}
-                                        onChange={(e) =>
-                                            setRadioValue(e.currentTarget.value)
-                                        }
-                                    >
-                                        {radio.name}
-                                    </ToggleButton>
-                                ))}
-                            </ButtonGroup>
-                            <br />
-                            <ButtonGroup toggle>
-                                {position_back.map((radio, idx) => (
-                                    <ToggleButton
-                                        key={idx}
-                                        type="radio"
-                                        variant="outline-secondary rounded-0 border-top-0"
-                                        name="radio"
-                                        value={radio.value}
-                                        checked={radioValue === radio.value}
-                                        onChange={(e) =>
-                                            setRadioValue(e.currentTarget.value)
-                                        }
-                                    >
-                                        {radio.name}
-                                    </ToggleButton>
-                                ))}
-                            </ButtonGroup>
-                        </div>
                     </div>
                     <hr />
                     <b className="mr-1">舉球方式：</b>
+                    <MyTogglebutton
+                        radios={set_radios}
+                        variant="outline-secondary"
+                        name="way"
+                    />
                     <ButtonGroup toggle className="my-2">
                         {set_radios.map((radio, idx) => (
                             <ToggleButton
@@ -307,9 +268,7 @@ export default function ToggleButtonExample() {
                                 name="radio"
                                 value={radio.value}
                                 checked={radioValue === radio.value}
-                                onChange={(e) =>
-                                    setRadioValue(e.currentTarget.value)
-                                }
+                                onChange={(e) => setRadioValue(e.currentTarget.value)}
                             >
                                 {radio.name}
                             </ToggleButton>
@@ -326,9 +285,7 @@ export default function ToggleButtonExample() {
                                 name="radio"
                                 value={radio.value}
                                 checked={radioValue === radio.value}
-                                onChange={(e) =>
-                                    setRadioValue(e.currentTarget.value)
-                                }
+                                onChange={(e) => setRadioValue(e.currentTarget.value)}
                             >
                                 {radio.name}
                             </ToggleButton>
@@ -345,9 +302,7 @@ export default function ToggleButtonExample() {
                                 name="radio"
                                 value={radio.value}
                                 checked={radioValue === radio.value}
-                                onChange={(e) =>
-                                    setRadioValue(e.currentTarget.value)
-                                }
+                                onChange={(e) => setRadioValue(e.currentTarget.value)}
                             >
                                 {radio.name}
                             </ToggleButton>
@@ -356,7 +311,7 @@ export default function ToggleButtonExample() {
                     <div>
                         <Button variant="primary" className="mr-2">
                             送出
-                        </Button>
+            </Button>
                         <Button variant="outline-danger">清除</Button>
                     </div>
                 </Tab>
@@ -376,9 +331,7 @@ export default function ToggleButtonExample() {
                                         name="radio"
                                         value={radio.value}
                                         checked={radioValue === radio.value}
-                                        onChange={(e) =>
-                                            setRadioValue(e.currentTarget.value)
-                                        }
+                                        onChange={(e) => setRadioValue(e.currentTarget.value)}
                                     >
                                         {radio.name}
                                     </ToggleButton>
@@ -397,9 +350,7 @@ export default function ToggleButtonExample() {
                                 name="radio"
                                 value={radio.value}
                                 checked={radioValue === radio.value}
-                                onChange={(e) =>
-                                    setRadioValue(e.currentTarget.value)
-                                }
+                                onChange={(e) => setRadioValue(e.currentTarget.value)}
                             >
                                 {radio.name}
                             </ToggleButton>
@@ -408,7 +359,7 @@ export default function ToggleButtonExample() {
                     <div>
                         <Button variant="primary" className="mr-2">
                             送出
-                        </Button>
+            </Button>
                         <Button variant="outline-danger">清除</Button>
                     </div>
                 </Tab>
@@ -428,9 +379,7 @@ export default function ToggleButtonExample() {
                                         name="radio"
                                         value={radio.value}
                                         checked={radioValue === radio.value}
-                                        onChange={(e) =>
-                                            setRadioValue(e.currentTarget.value)
-                                        }
+                                        onChange={(e) => setRadioValue(e.currentTarget.value)}
                                     >
                                         {radio.name}
                                     </ToggleButton>
@@ -446,9 +395,7 @@ export default function ToggleButtonExample() {
                                         name="radio"
                                         value={radio.value}
                                         checked={radioValue === radio.value}
-                                        onChange={(e) =>
-                                            setRadioValue(e.currentTarget.value)
-                                        }
+                                        onChange={(e) => setRadioValue(e.currentTarget.value)}
                                     >
                                         {radio.name}
                                     </ToggleButton>
@@ -467,9 +414,7 @@ export default function ToggleButtonExample() {
                                 name="radio"
                                 value={radio.value}
                                 checked={radioValue === radio.value}
-                                onChange={(e) =>
-                                    setRadioValue(e.currentTarget.value)
-                                }
+                                onChange={(e) => setRadioValue(e.currentTarget.value)}
                             >
                                 {radio.name}
                             </ToggleButton>
@@ -486,9 +431,7 @@ export default function ToggleButtonExample() {
                                 name="radio"
                                 value={radio.value}
                                 checked={radioValue === radio.value}
-                                onChange={(e) =>
-                                    setRadioValue(e.currentTarget.value)
-                                }
+                                onChange={(e) => setRadioValue(e.currentTarget.value)}
                             >
                                 {radio.name}
                             </ToggleButton>
@@ -505,9 +448,7 @@ export default function ToggleButtonExample() {
                                 name="radio"
                                 value={radio.value}
                                 checked={radioValue === radio.value}
-                                onChange={(e) =>
-                                    setRadioValue(e.currentTarget.value)
-                                }
+                                onChange={(e) => setRadioValue(e.currentTarget.value)}
                             >
                                 {radio.name}
                             </ToggleButton>
@@ -516,7 +457,7 @@ export default function ToggleButtonExample() {
                     <div>
                         <Button variant="primary" className="mr-2">
                             送出
-                        </Button>
+            </Button>
                         <Button variant="outline-danger">清除</Button>
                     </div>
                 </Tab>
