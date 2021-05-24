@@ -55,23 +55,34 @@ export default function ToggleButtonExample() {
     const [radioValue, setRadioValue] = useState("1");
 
     const attack_radios = [
-        { name: "斜線", value: "1" },
-        { name: "直線", value: "2" },
+        { name: "斜線", value: "斜線" },
+        { name: "直線", value: "直線" },
     ];
     const attack_type = [
         { name: "扣球", value: "扣球" },
         { name: "吊球", value: "吊球" },
     ];
+    const attack_result = [
+        { name: "S", value: "S" },
+        { name: "A", value: "A" },
+        { name: "B", value: "B" },
+        { name: "C", value: "C" },
+    ]
     const position_front = [
         { name: "4", value: "4" },
-        { name: "3", value: "5" },
-        { name: "2", value: "6" },
+        { name: "3", value: "3" },
+        { name: "2", value: "2" },
     ];
     const position_back = [
-        { name: "5", value: "7" },
-        { name: "6", value: "8" },
-        { name: "1", value: "9" },
+        { name: "5", value: "5" },
+        { name: "6", value: "6" },
+        { name: "1", value: "1" },
     ];
+    const serve_radios = [
+        { name: "5", value: "setAt5" },
+        { name: "6", value: "setAt6" },
+        { name: "1", value: "setAt1" },
+    ]
     const point_radios = [
         { name: "得分", value: "10" },
         { name: "失誤", value: "11" },
@@ -88,10 +99,10 @@ export default function ToggleButtonExample() {
         { name: "C", value: "C" },
     ];
     const set_radios = [
-        { name: "低手", value: "16" },
-        { name: "上手", value: "17" },
+        { name: "跑動舉球", value: "runningSet" },
+        { name: "定位舉球", value: "standSet" },
     ];
-    const serve_radios = [
+    const serve_type = [
         { name: "低手", value: "18" },
         { name: "高手", value: "19" },
         { name: "跳發", value: "20" },
@@ -185,6 +196,12 @@ export default function ToggleButtonExample() {
                         />
                         <hr />
                         <b className="mr-1">結果：</b>
+                        <MyTogglebutton
+                            radios={attack_result}
+                            variant="outline-secondary"
+                            name="result"
+                        />
+                        <hr />
                         <div>
                             <Button
                                 variant="primary"
@@ -193,7 +210,7 @@ export default function ToggleButtonExample() {
                                 size="lg"
                             >
                                 送出
-              </Button>
+                            </Button>
                             <Button
                                 variant="outline-danger"
                                 as="input"
@@ -227,14 +244,14 @@ export default function ToggleButtonExample() {
                             variant="outline-secondary"
                             name="result"
                         />
+                        <hr />
                         <div>
                             <Button
                                 variant="primary"
                                 className="mr-2"
                                 type="submit"
                                 size="lg"
-                                value="送出"
-                            />
+                            >送出</Button>
                             <Button
                                 variant="outline-danger"
                                 as="input"
@@ -251,6 +268,7 @@ export default function ToggleButtonExample() {
                         <div className="d-flex align-items-center">
                             <b className="mr-1">舉球位置：</b>
                         </div>
+                        <App />
                     </div>
                     <hr />
                     <b className="mr-1">舉球方式：</b>
@@ -259,124 +277,84 @@ export default function ToggleButtonExample() {
                         variant="outline-secondary"
                         name="way"
                     />
-                    <ButtonGroup toggle className="my-2">
-                        {set_radios.map((radio, idx) => (
-                            <ToggleButton
-                                key={idx}
-                                type="radio"
-                                variant="outline-secondary"
-                                name="radio"
-                                value={radio.value}
-                                checked={radioValue === radio.value}
-                                onChange={(e) => setRadioValue(e.currentTarget.value)}
-                            >
-                                {radio.name}
-                            </ToggleButton>
-                        ))}
-                    </ButtonGroup>
                     <hr />
                     <b className="mr-1">舉球戰術：</b>
-                    <ButtonGroup toggle className="my-2">
-                        {set_type.map((radio, idx) => (
-                            <ToggleButton
-                                key={idx}
-                                type="radio"
-                                variant="outline-secondary"
-                                name="radio"
-                                value={radio.value}
-                                checked={radioValue === radio.value}
-                                onChange={(e) => setRadioValue(e.currentTarget.value)}
-                            >
-                                {radio.name}
-                            </ToggleButton>
-                        ))}
-                    </ButtonGroup>
+                    <MyTogglebutton
+                        radios={set_type}
+                        variant="outline-secondary"
+                        name="way" />
                     <hr />
                     <b className="mr-1">結果：</b>
-                    <ButtonGroup toggle className="my-2">
-                        {set_result.map((radio, idx) => (
-                            <ToggleButton
-                                key={idx}
-                                type="radio"
-                                variant="outline-secondary"
-                                name="radio"
-                                value={radio.value}
-                                checked={radioValue === radio.value}
-                                onChange={(e) => setRadioValue(e.currentTarget.value)}
-                            >
-                                {radio.name}
-                            </ToggleButton>
-                        ))}
-                    </ButtonGroup>
+                    <MyTogglebutton
+                        radios={set_result}
+                        variant="outline-secondary"
+                        name="result" />
+                    <hr />
                     <div>
-                        <Button variant="primary" className="mr-2">
-                            送出
-            </Button>
-                        <Button variant="outline-danger">清除</Button>
+                        <Button
+                            variant="primary"
+                            className="mr-2"
+                            type="submit"
+                            size="lg"
+                        >送出</Button>
+                        <Button
+                            variant="outline-danger"
+                            as="input"
+                            type="reset"
+                            value="清除"
+                            size="lg"
+                        />
                     </div>
                 </Tab>
 
                 <Tab eventKey="block" title="攔網">
-                    <div className="d-flex">
+                    <div className="d-flex mt-2">
                         <div className="d-flex align-items-center">
                             <b className="mr-1">攔網位置：</b>
                         </div>
-                        <div>
-                            <ButtonGroup toggle className="mt-3">
-                                {position_front.map((radio, idx) => (
-                                    <ToggleButton
-                                        key={idx}
-                                        type="radio"
-                                        variant="outline-secondary rounded-0"
-                                        name="radio"
-                                        value={radio.value}
-                                        checked={radioValue === radio.value}
-                                        onChange={(e) => setRadioValue(e.currentTarget.value)}
-                                    >
-                                        {radio.name}
-                                    </ToggleButton>
-                                ))}
-                            </ButtonGroup>
-                        </div>
+                        <MyTogglebutton
+                            radios={position_front}
+                            variant="outline-secondary"
+                            name="position" />
                     </div>
                     <hr />
                     <b className="mr-1">結果：</b>
-                    <ButtonGroup toggle className="my-2">
-                        {block_result.map((radio, idx) => (
-                            <ToggleButton
-                                key={idx}
-                                type="radio"
-                                variant="outline-secondary"
-                                name="radio"
-                                value={radio.value}
-                                checked={radioValue === radio.value}
-                                onChange={(e) => setRadioValue(e.currentTarget.value)}
-                            >
-                                {radio.name}
-                            </ToggleButton>
-                        ))}
-                    </ButtonGroup>
+                    <MyTogglebutton
+                        radios={block_result}
+                        variant="outline-secondary"
+                        name="result"
+                    />
+                    <hr />
                     <div>
-                        <Button variant="primary" className="mr-2">
-                            送出
-            </Button>
-                        <Button variant="outline-danger">清除</Button>
+                        <Button
+                            variant="primary"
+                            className="mr-2"
+                            type="submit"
+                            size="lg"
+                        >送出</Button>
+                        <Button
+                            variant="outline-danger"
+                            as="input"
+                            type="reset"
+                            value="清除"
+                            size="lg"
+                        />
                     </div>
                 </Tab>
 
                 <Tab eventKey="serve" title="發球">
-                    <div className="d-flex">
+                    <div className="d-flex mt-2">
                         <div className="d-flex align-items-center">
                             <b className="mr-1">發球落點：</b>
                         </div>
                         <div>
-                            <ButtonGroup toggle className="mt-2">
+                            <ButtonGroup toggle className="mt-2" size="lg">
                                 {position_front.map((radio, idx) => (
                                     <ToggleButton
                                         key={idx}
                                         type="radio"
                                         variant="outline-secondary rounded-0"
-                                        name="radio"
+                                        name="position"
                                         value={radio.value}
                                         checked={radioValue === radio.value}
                                         onChange={(e) => setRadioValue(e.currentTarget.value)}
@@ -386,13 +364,13 @@ export default function ToggleButtonExample() {
                                 ))}
                             </ButtonGroup>
                             <br />
-                            <ButtonGroup toggle>
+                            <ButtonGroup toggle size="lg">
                                 {position_back.map((radio, idx) => (
                                     <ToggleButton
                                         key={idx}
                                         type="radio"
                                         variant="outline-secondary rounded-0 border-top-0"
-                                        name="radio"
+                                        name="position"
                                         value={radio.value}
                                         checked={radioValue === radio.value}
                                         onChange={(e) => setRadioValue(e.currentTarget.value)}
@@ -405,60 +383,37 @@ export default function ToggleButtonExample() {
                     </div>
                     <hr />
                     <b className="mr-1">發球位置：</b>
-                    <ButtonGroup toggle>
-                        {position_back.map((radio, idx) => (
-                            <ToggleButton
-                                key={idx}
-                                type="radio"
-                                variant="outline-secondary"
-                                name="radio"
-                                value={radio.value}
-                                checked={radioValue === radio.value}
-                                onChange={(e) => setRadioValue(e.currentTarget.value)}
-                            >
-                                {radio.name}
-                            </ToggleButton>
-                        ))}
-                    </ButtonGroup>
+                    <MyTogglebutton
+                        radios={serve_radios}
+                        variant="outline-secondary"
+                        name="servePosition" />
                     <hr />
                     <b className="mr-1">發球方式：</b>
-                    <ButtonGroup toggle>
-                        {serve_radios.map((radio, idx) => (
-                            <ToggleButton
-                                key={idx}
-                                type="radio"
-                                variant="outline-secondary"
-                                name="radio"
-                                value={radio.value}
-                                checked={radioValue === radio.value}
-                                onChange={(e) => setRadioValue(e.currentTarget.value)}
-                            >
-                                {radio.name}
-                            </ToggleButton>
-                        ))}
-                    </ButtonGroup>
+                    <MyTogglebutton
+                        radios={serve_type}
+                        variant="outline-secondary"
+                        name="type" />
                     <hr />
                     <b className="mr-1">結果：</b>
-                    <ButtonGroup toggle>
-                        {point_radios.map((radio, idx) => (
-                            <ToggleButton
-                                key={idx}
-                                type="radio"
-                                variant="outline-secondary mb-2"
-                                name="radio"
-                                value={radio.value}
-                                checked={radioValue === radio.value}
-                                onChange={(e) => setRadioValue(e.currentTarget.value)}
-                            >
-                                {radio.name}
-                            </ToggleButton>
-                        ))}
-                    </ButtonGroup>
+                    <MyTogglebutton
+                        radios={point_radios}
+                        variant="outline-secondary"
+                        name="result" />
+                    <hr />
                     <div>
-                        <Button variant="primary" className="mr-2">
-                            送出
-            </Button>
-                        <Button variant="outline-danger">清除</Button>
+                        <Button
+                            variant="primary"
+                            className="mr-2"
+                            type="submit"
+                            size="lg"
+                        >送出</Button>
+                        <Button
+                            variant="outline-danger"
+                            as="input"
+                            type="reset"
+                            value="清除"
+                            size="lg"
+                        />
                     </div>
                 </Tab>
             </Tabs>
